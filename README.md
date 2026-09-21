@@ -3,7 +3,7 @@
 ## Projekto aprašymas
 
 Šio projekto tikslas -- sukurti nedidelį išmaniosios automobilių
-stovėjimo aikštelės prototipą naudojant **Arduino Uno** ir **Tinkercad
+stovėjimo aikštelės prototipą naudojant **Arduino Uno R3** ir **Tinkercad
 Circuits** simuliavimo aplinką.
 
 Sistema stebi dvi parkavimo vietas, nustato, ar jos užimtos, parodo
