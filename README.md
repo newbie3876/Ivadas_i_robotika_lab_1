@@ -33,26 +33,25 @@ programinė valdymo logika.
 ## Naudoti komponentai
 
   ------------------------------------------------------------------------
-  Komponentas                                 Kiekis Paskirtis
+  Komponentas                     Kiekis                 Paskirtis
   --------------------- ---------------------------- ---------------------
-  Arduino Uno                                      1 Pagrindinis sistemos
-                                                     valdiklis
+  Arduino Uno                       1             Pagrindinis sistemos valdiklis
 
-  HC-SR04 ultragarsinis                            3 Automobilio ir
-  jutiklis                                           parkavimo vietų
-                                                     aptikimas
+  HC-SR04 ultragarsinis             3                   Automobilio ir
+  jutiklis                                             parkavimo vietų
+                                                         aptikimas
 
-  Servo variklis                                   1 Įvažiavimo užtvaro
-                                                     valdymas
+  Servo variklis                    1                 Įvažiavimo užtvaro
+                                                         valdymas
 
-  LCD 16x2 ekranas                                 1 Informacijos apie
+  LCD 16x2 ekranas                  1                Informacijos apie
                                                      aikštelę rodymas
 
-  Žalias LED                                       2 Parkavimo vietų
+  Žalias LED                        2                 Parkavimo vietų
                                                      būsenos indikacija
 
-  Buzzer'is                                        1 Garsinis sistemos
-                                                     signalas
+  Buzzer'is                         1                Garsinis sistemos
+                                                         signalas
 
   Rezistoriai                           Pagal schemą LED srovės ribojimas
 
