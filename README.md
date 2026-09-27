@@ -25,8 +25,7 @@ programinė valdymo logika.
     -   LED įjungtas -- vieta laisva.
     -   LED išjungtas -- vieta užimta.
 -   Automatinis servo užtvaro atidarymas, kai yra laisvų vietų.
--   Užtvaro uždarymas po nustatyto laiko arba automobiliui pasitraukus
-    nuo įėjimo jutiklio.
+-   Užtvaras uždaromas, kai praeina minimalus atidarymo laikas ir automobilis nebėra aptinkamas, arba kai pasiekiamas maksimalus atidarymo laikas.
 -   Garsinis signalas įleidžiant automobilį arba tada, kai aikštelė
     pilna.
 
@@ -122,11 +121,11 @@ Naudojami kontaktai:
 Programoje nustatyta tokia aptikimo riba:
 
 ``` cpp
-const int detectionDistance = 15;
+const int detectionDistance = 20;
 ```
 
 Tai reiškia, kad objektas laikomas aptiktu, kai išmatuotas atstumas yra
-mažesnis nei 15 cm.
+mažesnis nei 20 cm.
 
 Ši reikšmė gali būti keičiama pagal simuliacijos sąlygas ir jutiklių
 išdėstymą.
@@ -159,8 +158,11 @@ Užtvarui naudojamos dvi pagrindinės būsenos:
 -   `GATE_CLOSED` -- užtvaras uždarytas.
 -   `GATE_OPEN` -- užtvaras atidarytas.
 
-Užtvaro laikas valdomas naudojant `millis()`, todėl programa gali tęsti
-kitus veiksmus nelaukdama `delay(3000)` pabaigos.
+Užtvaro atidarymo trukmė valdoma naudojant millis(), todėl vartų būsenai nereikia naudoti ilgo delay() laukimo.
+
+## Circuit schematic
+
+![Circuit schematic](tinkercad_schematic.png)
 
 ### 4. LCD atnaujinimas
 
