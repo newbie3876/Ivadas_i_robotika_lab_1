@@ -162,7 +162,7 @@ Užtvaro atidarymo trukmė valdoma naudojant millis(), todėl vartų būsenai ne
 
 ## Circuit schematic
 
-![Circuit schematic](tinkercad_schematic.png)
+![Circuit schematic](images/tinkercad_schematic.png)
 
 ### 4. LCD atnaujinimas
 
