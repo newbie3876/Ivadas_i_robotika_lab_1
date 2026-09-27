@@ -1,15 +1,15 @@
 #include <Servo.h>
 #include <LiquidCrystal.h>
 
-// Entrance sensor
+// Entrance sensor:
 const int entranceTrig = 9;
 const int entranceEcho = 8;
 
-// Parking slot 1
+// Parking slot 1:
 const int slot1Trig = 11;
 const int slot1Echo = 10;
 
-// Parking slot 2
+// Parking slot 2:
 const int slot2Trig = 13;
 const int slot2Echo = 12;
 
@@ -20,23 +20,21 @@ const int buzzerPin = 2;
 const int green1 = 5;
 const int green2 = 3;
 
-// LCD 16x2
+// LCD 16x2:
 LiquidCrystal lcd(A0, A1, A2, A3, A4, A5);
 
 Servo gate;
+const int detectionDistance = 20; // Vehicle detection distance in centimeters
 
-// Vehicle detection distance in centimeters
-const int detectionDistance = 20;
-
-// Servo angles
+// Servo angles:
 const int gateOpenAngle = 90;
 const int gateClosedAngle = 0;
 
-// Gate timing
+// Gate timing:
 const unsigned long minimumOpenTime = 1500;
 const unsigned long maximumOpenTime = 8000;
 
-// LCD welcome message duration
+// LCD welcome message duration:
 const unsigned long welcomeDuration = 2000;
 
 // sistemos būsenos:
@@ -47,27 +45,24 @@ enum GateState {
 
 GateState gateState = GATE_CLOSED;
 
-// Time when gate was opened
-unsigned long gateOpenedAt = 0;
-
-// Prevent repeated detection of the same vehicle
-bool carHandled = false;
+unsigned long gateOpenedAt = 0; // Time when gate was opened
+bool carHandled = false; // Prevent repeated detection of the same vehicle
 
 // LCD MESSAGE:
 unsigned long messageStartedAt = 0;
 bool welcomeMessageActive = false;
 
-// Remember last LCD content
+// Remember last LCD content:
 String lastLine1 = "";
 String lastLine2 = "";
 
-// Atstumo matavimai
+// Atstumo matavimai:
 long getDistance(int trigPin, int echoPin) {
-  // Make sure trigger is LOW
+  // Make sure trigger is LOW:
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
-  // Send 10 microsecond ultrasonic pulse
+  // Send 10 microsecond ultrasonic pulse:
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
@@ -84,18 +79,15 @@ long getDistance(int trigPin, int echoPin) {
 
 // LCD DISPLAY:
 void printLine(int row, String text) {
-  // Limit text to 16 characters
-  if (text.length() > 16) text = text.substring(0, 16);
-
-  // Fill remaining characters with spaces
-  while (text.length() < 16) text += " ";
+  if (text.length() > 16) text = text.substring(0, 16); // limits text to 16 characters
+  while (text.length() < 16) text += " "; // fills remaining characters with spaces
 
   lcd.setCursor(0, row);
   lcd.print(text);
 }
 
 void updateLCD(String line1, String line2) {
-  // Update LCD only when text changes
+  // Update LCD only when text changes:
   if (line1 != lastLine1 || line2 != lastLine2) {
     printLine(0, line1);
     printLine(1, line2);
@@ -105,14 +97,12 @@ void updateLCD(String line1, String line2) {
   }
 }
 
-
 // GATE CONTROL:
 void openGate() {
   gate.write(gateOpenAngle);
   gateState = GATE_OPEN;
   gateOpenedAt = millis();
 }
-
 
 void closeGate() {
   gate.write(gateClosedAngle);
@@ -144,8 +134,8 @@ void setup() {
 
 void loop() {
   long distance1 = getDistance(slot1Trig, slot1Echo);
-  
-  // Small delay prevents ultrasonic interference
+  //Small delay reduces the risk of ultrasonic 
+  // interference between sensors:
   delay(30);
 
   long distance2 = getDistance(slot2Trig, slot2Echo);
@@ -200,11 +190,9 @@ void loop() {
   } else {
     // Reset detection only after the vehicle leaves the entrance:
     if (!carDetected) carHandled = false;
-
     // nėra laisvų vietų:
     if (freePlaces == 0) {
       updateLCD("PARKING FULL", "No vacant spaces");
-      
       // Sound buzzer only once for the detected vehicle:
       if (carDetected && !carHandled) {
         tone(buzzerPin, 500, 500);
@@ -214,14 +202,12 @@ void loop() {
       // Vehicle detected and this vehicle has not been handled yet:
       if (carDetected && !carHandled) {
         updateLCD("WELCOME!", String("Vacant: ") + freePlaces);
-
         tone(buzzerPin, 1000, 200); // Short confirmation sound
         openGate(); // opens gate
-
+        
         // Start welcome message timer:
         welcomeMessageActive = true;
         messageStartedAt = currentTime;
-
         carHandled = true; // prevents repeated opening
       } else if (!welcomeMessageActive) {
         updateLCD("VACANT SPACES", String("Available: ") + freePlaces);
