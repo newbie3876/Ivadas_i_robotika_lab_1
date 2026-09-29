@@ -69,7 +69,6 @@ long getDistance(int trigPin, int echoPin) {
 
   // Measure echo:
   long duration = pulseIn(echoPin, HIGH, 30000);
-
   // No echo received:
   if (duration == 0) return 999;
 
@@ -174,14 +173,11 @@ void loop() {
 
     if (maximumTimePassed ||(minimumTimePassed && !carDetected)) {
       closeGate();
-      
       // Gate cycle finished:
       carHandled = true;
     }
-
-    // =============================
-    // LCD WHILE GATE IS OPEN
-    // =============================
+    
+    // LCD WHILE GATE IS OPEN:
     if (welcomeMessageActive) {
       updateLCD("WELCOME!", String("Vacant: ") + freePlaces);
     } else {
